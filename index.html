@@ -1,0 +1,54 @@
+<html>
+
+<head>
+  <link rel="stylesheet" href="style.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="header">
+    <div class="container">
+      <h1>Markoff</h1>
+    </div>
+  </div>
+  <div class="main">
+    <div id="epiceditor"></div>
+    <script type="text/javascript">
+      document.getElementById('epiceditor').style.height = ((window.innerHeight - 41) + "px");
+    </script>
+    <script src="epiceditor/js/epiceditor.min.js"></script>
+    <script type="text/javascript">
+      var opts = {
+        container: 'epiceditor',
+        basePath: 'epiceditor',
+        clientSideStorage: true,
+        localStorageName: 'epiceditor',
+        parser: marked,
+        file: {
+          name: 'epiceditor',
+          defaultContent: '',
+          autoSave: 100
+        },
+        theme: {
+          base:'/themes/base/epiceditor.css',
+          //preview:'/themes/preview/preview-dark.css',
+          preview:'/themes/preview/github.css',
+          editor:'/themes/editor/epic-dark.css'
+        },
+        focusOnLoad: false,
+        shortcut: {
+          modifier: 18,
+          fullscreen: 70,
+          preview: 80,
+          edit: 79
+        }
+      }
+      var editor = new EpicEditor(opts).load();
+
+      var editorArea = editor.iframeElement.contentDocument.getElementById('epiceditor-editor-frame').contentDocument.body;
+      $(editorArea).bind('keyup', function(){ editor.preview() });
+    </script>
+  </div>
+</body>
+
+</html>
